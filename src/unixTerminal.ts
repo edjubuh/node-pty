@@ -11,7 +11,7 @@ import { ProcessEnv, IPtyForkOptions, IPtyOpenOptions } from './interfaces';
 import { ArgvOrCommandLine } from './types';
 import { assign } from './utils';
 
-const pty = require(path.join('..', 'build', 'Release', 'pty.node'));
+const pty = require(path.join('..', 'publish', 'pty.node'));
 
 const DEFAULT_FILE = 'sh';
 const DEFAULT_NAME = 'xterm';

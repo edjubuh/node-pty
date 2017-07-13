@@ -6,7 +6,7 @@ node_js:
   - "6"
   - "7"
 install:
-  - npm install
+  - npm install --build-from-source
   - npm run tsc
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test ; fi

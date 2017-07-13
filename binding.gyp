@@ -1,5 +1,6 @@
 {
-  'targets': [{
+  'targets': [
+  {
     'target_name': 'pty',
     'include_dirs' : [
       '<!(node -e "require(\'nan\')")'
@@ -52,5 +53,20 @@
         }
       }]
     ]
-  }]
+  },
+  {
+    "target_name": "action_after_build",
+    "type": "none",
+    "dependencies": [ "pty" ],
+    "copies": [
+        {
+            "files": [
+                "./build/Release/pty.node",
+                './build/release/winpty-agent.exe',
+                './build/release/winpty.dll'],
+            "destination": "./publish"
+        }
+    ]
+  }
+  ]
 }
