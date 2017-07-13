@@ -116,15 +116,15 @@ dumpbin /DEPENDENTS "%NODE_EXE%"
 IF %ERRORLEVEL% NEQ 0 GOTO ERROR
 dumpbin /DEPENDENTS "%MODULE%"
 IF %ERRORLEVEL% NEQ 0 GOTO ERROR
+if NOT %nodejs_version% == "6" IF NOT %nodejs_version% == "7" GOTO NPM_TEST_FINISHED
 ::skipping check for errorlevel npm test result when using io.js
 ::@springmeyer: how to proceed?
-IF NOT "%nodejs_version%"=="1.8.1" IF NOT "%nodejs_version%"=="2.0.0" GOTO CHECK_NPM_TEST_ERRORLEVEL
-ECHO calling npm test
-CALL npm test
+IF "%nodejs_version%"=="6" GOTO CHECK_NPM_TEST_ERRORLEVEL
+IF "%nodejs_version%"=="7" GOTO CHECK_NPM_TEST_ERRORLEVEL
 ECHO ==========================================
 ECHO ==========================================
 ECHO ==========================================
-ECHO using iojs, not checking test result!!!!!!!!!
+ECHO skipping test!!!!!!!!!
 ECHO ==========================================
 ECHO ==========================================
 ECHO ==========================================
