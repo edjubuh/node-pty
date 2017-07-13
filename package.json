@@ -1,5 +1,5 @@
 {
-  "name": "node-pty",
+  "name": "node-pty2",
   "description": "Fork pseudoterminals in Node.JS",
   "author": {
     "name": "Daniel Imms"
@@ -36,7 +36,10 @@
       "npm run tsc",
       "npm ls"
     ],
-    "postpublish": "node-pre-gyp-github publish --release"
+    "postpublish": [
+	    "node-pre-gyp package",
+	    "node-pre-gyp-github publish --release"
+    ]
   },
   "dependencies": {
     "nan": "2.5.0"
