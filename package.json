@@ -39,10 +39,6 @@
     "prepublish": [
       "npm run tsc",
       "npm ls"
-    ],
-    "postpublish": [
-      "node-pre-gyp package",
-      "node-pre-gyp-github publish --release"
     ]
   },
   "dependencies": {

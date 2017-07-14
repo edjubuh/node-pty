@@ -108,9 +108,16 @@ CALL npm install --build-from-source --msvs_version=%msvs_version% %TOOLSET_ARGS
 IF %ERRORLEVEL% NEQ 0 GOTO ERROR
 CALL npm run tsc
 IF %ERRORLEVEL% NEQ 0 GOTO ERROR
+
+:: TODO: make this a bit more robust maybe someday
+IF NOT "%node_target_platform%"=="electron" GOTO PRE_GYP_PACKAGE
+CALL node-gyp rebuild --target=%node_target_version% --dist-url=https://atom.io/download/electron --msvs_version=%msvs_version%
+IF %ERRORLEVEL% NEQ 0 GOTO ERROR
+
+:PRE_GYP_PACKAGE
 SET PRE_GYP_EXTRA_ARGS=
-IF "%node_target_platform%"=="" SET PRE_GYP_EXTRA_ARGS=%PRE_GYP_EXTRA_ARGS% --runtime=%node_target_platform%
-IF "%node_target_version%"=="" SET PRE_GYP_EXTRA_ARGS=%PRE_GYP_EXTRA_ARGS% --target=%node_target_version%
+IF NOT "%node_target_platform%"=="" SET PRE_GYP_EXTRA_ARGS=%PRE_GYP_EXTRA_ARGS% --runtime=%node_target_platform%
+IF NOT "%node_target_version%"=="" SET PRE_GYP_EXTRA_ARGS=%PRE_GYP_EXTRA_ARGS% --target=%node_target_version%
 CALL .\node_modules\.bin\node-pre-gyp package --msvs_version=%msvs_version% %PRE_GYP_EXTRA_ARGS%
 IF %ERRORLEVEL% NEQ 0 GOTO ERROR
 if NOT %nodejs_version% == "6" IF NOT %nodejs_version% == "7" GOTO NPM_TEST_FINISHED
