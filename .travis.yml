@@ -22,7 +22,7 @@ env:
   secure: 4LB6wRoR+mSP8czWTz9/qD7N4m5areRfSekBYSy4M1PyAaRc1cCGuAF1mAnQRcFz3hbn6U5t01oZewZGilsLRBoiw9VhwCdqFM4lyEWx7Cnj5LnsiL616vG7XHA9h+Nbk3bXYCzn9EgVPlLEIvY5WkoQ9JjFaCjRHjJpxjwV6Zvr7Ptr1JxVbAuuqNEeFIPGTCUL6VobOcKVHBeoxt8WNTGZullv7z1T4eRV06Z4H5PoMHcoD2+ryYM0JR0nV6pPOETICQBi0TQuh8uBFnIjt98hHIuT3A4+G0JhZPkWqXAB1aueE4ste7DeKQuqr5tusswkvJ+idXOazNb9BfPM227dNwrCx4+LxQ6+4UACvmH8ZCsQjQOF7CGRv3L2Zd+F/V5B9S3bM2rm75v8vYaUmp/OSJvtjnw89dd6RLEfVPoMjtDamE1B3RZTWmJmuk9wC6MBmsComEoDFZftmAMhh0EIFShZElSSG8qp5Po9CgeT17Kv+j+kERKZa/jqFZ4GnKiSZBkPkiU6ON7mVhd7F/hFpSXYn711JDZU1sIcqT5nK9Gv4LxSfU8nqB5JmI9mrYnFvEE2AedL6EciB3ATbDNr7OiJYGI9VYc3HFS68YXR22zudA9VuWDRw8zqJsEYzbERL66WuVfxnQJqpIoDUbHzRGOWGYKL49Ec/iKw1LE=
 deploy:
   provider: script
-  script: ./node_modules/.bin/node-pre-gyp-github --release
+  script: ./node_modules/.bin/node-pre-gyp-github publish --release
   skip_cleanup: true
   on:
     tags: true
