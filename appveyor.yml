@@ -1,4 +1,6 @@
 environment:
+  node_pre_gyp_github_token:
+    secure: T7+ogL67i/oZ9pkTUSyItpU7mi0rZKu48QZMGOujQwIANPj1I7oQ1i4qd6tVVAYz
   matrix:
     - nodejs_version: 4
       platform: x64
@@ -57,9 +59,10 @@ artifacts:
   - path: 'build\stage\**\*.tar.gz'
 
 deploy_script:
-  - ps: 'scripts\build-appveyor.bat'
-    environment:
-      node_pre_gyp_github_token:
-        secure: T7+ogL67i/oZ9pkTUSyItpU7mi0rZKu48QZMGOujQwIANPj1I7oQ1i4qd6tVVAYz
-    on:
-      appveyor_repo_tag: true
+  - ps: |
+      If($Env:APPVEYOR_REPO_TAG -eq $true) {
+        Write-Debug "Publishing!"
+        .\node_modules\.bin\node-pre-gyp-github publish --release
+      } Else {
+        Write-Debug "Not publishing"
+      }

@@ -110,7 +110,8 @@ CALL npm run tsc
 IF %ERRORLEVEL% NEQ 0 GOTO ERROR
 
 :: TODO: make this a bit more robust maybe someday
-IF "%node_target_platform%"=="electron" GOTO PRE_GYP_PACKAGE
+IF NOT "%node_target_platform%"=="electron" GOTO PRE_GYP_PACKAGE
+ECHO rebuilding for electron
 CALL node-gyp rebuild --target=%node_target_version% --dist-url=https://atom.io/download/electron --msvs_version=%msvs_version%
 IF %ERRORLEVEL% NEQ 0 GOTO ERROR
 
