@@ -38,9 +38,8 @@ deploy:
   description: 'Release $(APPVEYOR_REPO_TAG_NAME)'
   provider: GitHub
   auth_token:
-    secure: a3YsyAKuwI73/fKNBPoXAUbnYOcuY501j3HKbk6VCqfBe9jPHoDIEfyaFNVMQ4a6
+    secure: T7+ogL67i/oZ9pkTUSyItpU7mi0rZKu48QZMGOujQwIANPj1I7oQ1i4qd6tVVAYz
   draft: false
   prerelease: false
   on:
-    branch: master
     appveyor_repo_tag: true
