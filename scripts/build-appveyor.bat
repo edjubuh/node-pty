@@ -108,14 +108,7 @@ CALL npm install --build-from-source --msvs_version=%msvs_version% %TOOLSET_ARGS
 IF %ERRORLEVEL% NEQ 0 GOTO ERROR
 CALL npm run tsc
 IF %ERRORLEVEL% NEQ 0 GOTO ERROR
-FOR /F "tokens=*" %%i in ('CALL node_modules\.bin\node-pre-gyp reveal module --silent') DO SET MODULE=%%i
-IF %ERRORLEVEL% NEQ 0 GOTO ERROR
-FOR /F "tokens=*" %%i in ('node -e "console.log(process.execPath)"') DO SET NODE_EXE=%%i
-IF %ERRORLEVEL% NEQ 0 GOTO ERROR
-dumpbin /DEPENDENTS "%NODE_EXE%"
-IF %ERRORLEVEL% NEQ 0 GOTO ERROR
-dumpbin /DEPENDENTS "%MODULE%"
-IF %ERRORLEVEL% NEQ 0 GOTO ERROR
+CALL .\node_modules\.bin\node-pre-gyp package
 if NOT %nodejs_version% == "6" IF NOT %nodejs_version% == "7" GOTO NPM_TEST_FINISHED
 ::skipping check for errorlevel npm test result when using io.js
 ::@springmeyer: how to proceed?

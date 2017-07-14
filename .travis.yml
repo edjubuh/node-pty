@@ -1,27 +1,28 @@
 language: node_js
 os:
-  - linux
-  - osx
+- linux
+- osx
 node_js:
-  - "6"
-  - "7"
+- '6'
+- '7'
 install:
-  - npm install --build-from-source
-  - npm run tsc
+- npm install --build-from-source
+- npm run tsc
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq update ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install g++-4.8 ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX=g++-4.8 ; fi
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  ; fi
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq update ; fi
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install g++-4.8 ; fi
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX=g++-4.8 ; fi
 script:
-  - npm test
-  - npm run tslint
+- npm test
+- npm run tslint
+- ./node_modules/.bin/node-pre-gyp package
+env:
+  secure: 4LB6wRoR+mSP8czWTz9/qD7N4m5areRfSekBYSy4M1PyAaRc1cCGuAF1mAnQRcFz3hbn6U5t01oZewZGilsLRBoiw9VhwCdqFM4lyEWx7Cnj5LnsiL616vG7XHA9h+Nbk3bXYCzn9EgVPlLEIvY5WkoQ9JjFaCjRHjJpxjwV6Zvr7Ptr1JxVbAuuqNEeFIPGTCUL6VobOcKVHBeoxt8WNTGZullv7z1T4eRV06Z4H5PoMHcoD2+ryYM0JR0nV6pPOETICQBi0TQuh8uBFnIjt98hHIuT3A4+G0JhZPkWqXAB1aueE4ste7DeKQuqr5tusswkvJ+idXOazNb9BfPM227dNwrCx4+LxQ6+4UACvmH8ZCsQjQOF7CGRv3L2Zd+F/V5B9S3bM2rm75v8vYaUmp/OSJvtjnw89dd6RLEfVPoMjtDamE1B3RZTWmJmuk9wC6MBmsComEoDFZftmAMhh0EIFShZElSSG8qp5Po9CgeT17Kv+j+kERKZa/jqFZ4GnKiSZBkPkiU6ON7mVhd7F/hFpSXYn711JDZU1sIcqT5nK9Gv4LxSfU8nqB5JmI9mrYnFvEE2AedL6EciB3ATbDNr7OiJYGI9VYc3HFS68YXR22zudA9VuWDRw8zqJsEYzbERL66WuVfxnQJqpIoDUbHzRGOWGYKL49Ec/iKw1LE=
 deploy:
-  provider: releases
-  api_key:
-    secure: "G+o1GsjLeWq2eiNc8e5wRi9R87TqZXpQMh1qyVknRdsvUW69Mb7QJoSlGvs8FgJlJcty/1DcDN8hab8t0HVLGu0GoaN2KGRT3Hj98SGq75K7lyErPbpxcqF+BTWrrj2mDcOL0LsKvFm8p11nKUNlg4HBNGi885BkiQKuUR3aSS7AcbKoHOoMrpGZum0UjhocsAdefX+Qy44gGSqyppktJVJ8J3LbfK5rSzbVEyWR2MsG/U0dH/LglqaXCeJZrdxo5532zHUoTYyCKsHn5VIVQsPc/De/xGsG/VlPiifJyP/H0Nc7m3jLQjWpgZN7kP/w5ZRohQtbM4SKCXhLmovOsXOen3G+J6H3Ip3yvqZZQZ7DTueDXwjplvuDdfYubDozJwLMP/W+f5ZIaTPkXHAFLIEwqANEDU3KpoOGlJbCcAreVpvnP269041etpP3t0LAezh9WNpHgH6EjapEdQTMCljjwEOjX3C5+uZuuglC782qBoX6w8nkwxWW/5kDY/zo5ZN+ZPsEUN44EfS9bRrqgpj8fi7Bq9jzkCuk57UFH0u6VxQfgCC60B/QcdInunl0yqJafe4fP6pmkv6E5+BPF+1tFyXiqG6Mi0ZAyYlu+8tOEUCv6DcMrto5m6+n8+/7QbRBM+Lh99nntrQ9Nd/TIs9/gQ0WsDZv9qiAtuHnJkI="
-  file_glob: true
-  file: 'build/stage/**/*.tar.gz'
+  provider: script
+  script: ./node_modules/.bin/node-pre-gyp-github --release
   skip_cleanup: true
   on:
     tags: true

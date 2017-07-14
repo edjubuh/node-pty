@@ -32,6 +32,8 @@ install:
 
 build: OFF
 test: OFF
+artifacts:
+  - path: 'build\stage\**\*.tar.gz'
 deploy:
   description: 'Release $(APPVEYOR_REPO_TAG_NAME)'
   provider: GitHub
