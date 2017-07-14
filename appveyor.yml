@@ -25,6 +25,27 @@ environment:
       platform: x86
       msvs_toolset: 12
 
+    - nodejs_version: 6
+      platform: x64
+      msvs_toolset: 12
+      node_target_platform: electron
+      node_target_version: 1.3.15
+    - nodejs_version: 6
+      platform: x86
+      msvs_toolset: 12
+      node_target_platform: electron
+      node_target_version: 1.3.15
+    - nodejs_version: 6
+      platform: x64
+      msvs_toolset: 12
+      node_target_platform: electron
+      node_target_version: 1.3.15
+    - nodejs_version: 6
+      platform: x86
+      msvs_toolset: 12
+      node_target_platform: electron
+      node_target_version: 1.6.9
+
 os: Visual Studio 2015
 
 install:
@@ -34,12 +55,11 @@ build: OFF
 test: OFF
 artifacts:
   - path: 'build\stage\**\*.tar.gz'
-deploy:
-  description: 'Release $(APPVEYOR_REPO_TAG_NAME)'
-  provider: GitHub
-  auth_token:
-    secure: T7+ogL67i/oZ9pkTUSyItpU7mi0rZKu48QZMGOujQwIANPj1I7oQ1i4qd6tVVAYz
-  draft: false
-  prerelease: false
-  on:
-    appveyor_repo_tag: true
+
+deploy_script:
+  - ps: 'scripts\build-appveyor.bat'
+    environment:
+      node_pre_gyp_github_token:
+        secure: T7+ogL67i/oZ9pkTUSyItpU7mi0rZKu48QZMGOujQwIANPj1I7oQ1i4qd6tVVAYz
+    on:
+      appveyor_repo_tag: true

@@ -108,7 +108,11 @@ CALL npm install --build-from-source --msvs_version=%msvs_version% %TOOLSET_ARGS
 IF %ERRORLEVEL% NEQ 0 GOTO ERROR
 CALL npm run tsc
 IF %ERRORLEVEL% NEQ 0 GOTO ERROR
-CALL .\node_modules\.bin\node-pre-gyp package
+SET PRE_GYP_EXTRA_ARGS=
+IF "%node_target_platform%"=="" SET PRE_GYP_EXTRA_ARGS=%PRE_GYP_EXTRA_ARGS% --runtime=%node_target_platform%
+IF "%node_target_version%"=="" SET PRE_GYP_EXTRA_ARGS=%PRE_GYP_EXTRA_ARGS% --target=%node_target_version%
+CALL .\node_modules\.bin\node-pre-gyp package --msvs_version=%msvs_version% %PRE_GYP_EXTRA_ARGS%
+IF %ERRORLEVEL% NEQ 0 GOTO ERROR
 if NOT %nodejs_version% == "6" IF NOT %nodejs_version% == "7" GOTO NPM_TEST_FINISHED
 ::skipping check for errorlevel npm test result when using io.js
 ::@springmeyer: how to proceed?
